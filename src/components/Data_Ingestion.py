@@ -6,7 +6,9 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
 
-from Data_Transformation import DataTransformation, DataTrasnformaionConfig
+from Data_Transformation import DataTransformation
+from model_trainer import ModelTrainer
+
 
 
 @dataclass
@@ -50,4 +52,12 @@ if __name__ == "__main__":
     train_data, test_data = obj.initiateDataIngestion()
 
     data_transforamtion = DataTransformation()
-    data_transforamtion.initiate_data_transformation(train_data, test_data)
+    train_arr, test_arr, _ = data_transforamtion.initiate_data_transformation(train_data, test_data)
+
+    modeltrainer = ModelTrainer()
+    print("Training is initiated")
+    print("="*35)
+    print("The r2 score of the best model is: {} percent".format(round(modeltrainer.initiate_model_trainer(train_arr, test_arr) *100, 2)))
+    print("="*35)
+
+
